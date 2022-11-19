@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from posts.models import Post, Hashtag
+from django.shortcuts import render, HttpResponse
+from posts.models import Post, Hashtag, Comment
 
 # Create your views here.
 def main_page(request):
@@ -26,4 +26,17 @@ def hashtags_view(request):
             'hashtags': hashtags
         }
         return render(request, 'hashtags/hashags.html', context=data)
+
+
+def detail_view(request, **kwargs):
+    if request.method == "GET":
+        post = Post.objects.get(id=kwargs['id'])
+        comment = Comment.objects.filter(post=post)
+
+        data = {
+            'post': post,
+             'comment': comment
+        }
+        return render(request, 'posts/detail.html', context=data)
+
 
