@@ -13,19 +13,17 @@ def main_page(request):
 
 def posts_view(request):
     if request.method == "GET":
-        posts = Post.objects.all()
+        hashtag_id = request.GET.get('hashtag_id')
+        if hashtag_id:
+            posts = Post.objects.filter(hashtag_id=hashtag_id)
+        else:
+            posts = Post.objects.all()
         data = {
             'posts': posts
         }
         return render(request, 'posts/posts.html', context=data)
 
-def hashtags_view(request):
-    if request.method == "GET":
-        hashtags = Hashtag.objects.all()
-        data = {
-            'hashtags': hashtags
-        }
-        return render(request, 'hashtags/hashags.html', context=data)
+
 
 
 def detail_view(request, **kwargs):
@@ -38,5 +36,16 @@ def detail_view(request, **kwargs):
              'comment': comment
         }
         return render(request, 'posts/detail.html', context=data)
+
+def hashtag_view(request, **kwargs):
+    if request.method == 'GET':
+        hashtags = Hashtag.objects.all()
+
+        data = {
+            'hashtags': hashtags
+        }
+
+        return render(request, 'hashtags/hashags.html', context=data)
+
 
 

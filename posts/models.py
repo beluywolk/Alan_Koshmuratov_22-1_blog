@@ -13,9 +13,8 @@ class Hashtag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=15)
     text = models.TextField()
-    image = models.ImageField()
     likes = models.IntegerField()
-    hashtag = models.ManyToManyField(Hashtag, null=True)
+    hashtag = models.ForeignKey(Hashtag, on_delete=models.CASCADE)
     #author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.title

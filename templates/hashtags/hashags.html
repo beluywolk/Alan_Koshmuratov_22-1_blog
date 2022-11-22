@@ -1,13 +1,27 @@
 {% extends 'layouts/main.html' %}
 
 {% block content %}
+    <style type="text/css">
+        .hashtag > img {
+            width: 35px;
+            height: 35px;
+        }
 
+        .hashtag {
+            display: flex;
+            justify-content: space-between;
+            width: 20%;
+        }
+    </style>
+    <div class="hashtags">
         {% for hashtag in hashtags %}
-            <div class="card" style="width: 20%">
-                <div class="card-body">
-                    <h5 class="card-title">{{ hashtag.title }}</h5>
-                    <a href="#" class="btn btn-primary">More hashtags</a>
-                </div>
+            <div class="hashtag">
+
+
+                <a href="/posts/?hashtag_id={{ hashtag.id }}">
+                    {{ hashtag.title }} ({{ hashtag.posts.count }})
+                </a>
+
             </div>
         {% endfor %}
     </div>
