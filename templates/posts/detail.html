@@ -8,7 +8,7 @@
             margin-left: 15%;
         }
 
-        .comments > div {
+        .comment > div {
             height: 45px;
             margin-bottom: 20px;
             background: #242b2e;
@@ -26,8 +26,12 @@
             font-family: sans-serif;
         }
         .post {
-            width: 70%;
+            width: 65%;
             margin-left: 15%;
+        }
+        .create_comment {
+            width: 75%;
+            margin-left: 19%;
         }
     </style>
     <div class="post">
@@ -44,7 +48,14 @@
             </div>
         </div>
     </div>
-    <div class="comment">
+    <div class="create_comment">
+        <form action="/posts/{{post.id}}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="комментик">
+        </form>
+    </div>
+    <div class="comments">
         {% for comment in comments %}
             <div>
                 <p class="author">{{ comment.author.username }}</p>
