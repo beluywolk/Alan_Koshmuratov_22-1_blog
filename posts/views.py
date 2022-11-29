@@ -1,6 +1,7 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from posts.models import Post, Hashtag, Comment
 from posts.forms import PostCreateForm, CommentCreateForm
+from users.utills import get_user_from_request
 
 # Create your views here.
 def main_page(request):
@@ -20,7 +21,8 @@ def posts_view(request):
         else:
             posts = Post.objects.all()
         data = {
-            'posts': posts
+            'posts': posts,
+            'user': get_user_from_request(request)
         }
         return render(request, 'posts/posts.html', context=data)
 
@@ -93,3 +95,4 @@ def posts_create_view(request):
                 'form': form
             }
             return render(request, 'posts/create.html', context=data)
+
