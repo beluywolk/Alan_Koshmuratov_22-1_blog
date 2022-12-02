@@ -9,6 +9,12 @@
             margin-left: 10%;
         }
     </style>
+    <div>
+        <form action="/posts/?hashtag_id={{ hashtag_id }}" method="get">
+            <input type="hidden" name="hashtag_id" value="{{ hashtag_id }}">
+            <input type="text" name="search" value="">
+        </form>
+    </div>
     <div class="posts">
         {% for post in posts %}
             <div class="card" style="width: 20%">
@@ -17,6 +23,13 @@
                     <a href="/posts/{{ post.id }}" class="btn btn-primary">More posts</a>
                 </div>
             </div>
+        {% endfor %}
+    </div>
+    <div>
+        {% for page in max_page %}
+            <a href="/posts/?page={{ page }}">
+               <button style="width: 30px; height: 25px">{{ page }}</button>
+            </a>
         {% endfor %}
     </div>
 {% endblock %}
